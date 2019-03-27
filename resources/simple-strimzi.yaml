@@ -1,0 +1,38 @@
+apiVersion: kafka.strimzi.io/v1alpha1
+kind: Kafka
+metadata:
+  name: simple-strimzi
+  namespace: strimzi
+spec:
+  entityOperator:
+    topicOperator:
+      resources: {}
+  kafka:
+    config:
+      log.retention.hours: 1
+    listeners:
+      plain: {}
+      tls: {}
+    replicas: 1
+    resources:
+      limits:
+        memory: 3Gi
+      requests:
+        memory: 3Gi
+    storage:
+      class: gke-ssd
+      deleteClaim: false
+      size: 100Gi
+      type: persistent-claim
+  zookeeper:
+    replicas: 1
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        memory: 1Gi
+    storage:
+      class: gke-ssd
+      deleteClaim: false
+      size: 10Gi
+      type: persistent-claim

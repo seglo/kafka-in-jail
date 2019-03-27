@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "topics": [
+    { "topic": "call-record-pipeline.cdr-aggregator.out"},
+    { "topic": "call-record-pipeline.cdr-generator1.out"},
+    { "topic": "call-record-pipeline.cdr-generator2.out"},
+    { "topic": "call-record-pipeline.cdr-ingress.out"},
+    { "topic": "call-record-pipeline.cdr-validator.out-0"},
+    { "topic": "call-record-pipeline.cdr-validator.out-1"},
+    { "topic": "call-record-pipeline.merge.out"},
+  ]
+}

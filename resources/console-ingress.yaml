@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: console-ingress
+  namespace: lightbend-console
+spec:
+  rules:
+  - host: console.seglo-pipelines.ingestion.io
+    http:
+      paths:
+      - backend:
+          serviceName: console-server
+          servicePort: 80
