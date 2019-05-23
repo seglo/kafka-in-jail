@@ -21,7 +21,6 @@ spec:
         memory: 3Gi
     storage:
       class: gke-ssd
-      deleteClaim: false
       size: 100Gi
       type: persistent-claim
   zookeeper:
@@ -33,6 +32,5 @@ spec:
         memory: 1Gi
     storage:
       class: gke-ssd
-      deleteClaim: false
       size: 10Gi
       type: persistent-claim
