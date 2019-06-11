@@ -2,18 +2,18 @@
 export TILLER_NAMESPACE=tiller
 
 # login to cluster docker registry
-docker login -u admin registry.seglo-pipelines.ingestion.io:80
+cat /keybase/team/assassins/gcloud/pipelines-serviceaccount-key-container-registry-read-write.json | docker login -u _json_key --password-stdin https://eu.gcr.io
 
-# install chart
+# update chart to watch strimzi namespace
 kubectl create namespace strimzi
 helm repo add strimzi http://strimzi.io/charts/
-helm install strimzi/strimzi-kafka-operator \
---name pipelines-strimzi \
---namespace lightbend \
---set watchNamespaces="{strimzi}"
+helm upgrade \
+--reuse-values \
+--set watchNamespaces="{strimzi}" \
+pipelines-strimzi lightbend-helm-charts/strimzi-kafka-operator
 
 # create pipelines-strimzi cluster
 kubectl apply -f ./resources/pipelines-strimzi.yaml
 
 # generate data with call-record-pipeline
-kubectl-pipelines deploy registry.seglo-pipelines.ingestion.io:80/lightbend/call-record-pipeline:338-1221463-dirty cdr-aggregator.group-by-window="1 minute" cdr-aggregator.watermark="1 minute"
+cat /keybase/team/assassins/gcloud/pipelines-serviceaccount-key-container-registry-read-write.json | kubectl pipelines deploy -u _json_key --password-stdin eu.gcr.io/bubbly-observer-178213/lightbend/sensor-data-scala:387-d4a61ae cdr-aggregator.group-by-window="1 minute" cdr-aggregator.watermark="1 minute"
